@@ -10,16 +10,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-
-public class User {
-
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
+    private int idReservation;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String reservationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "iduser")
+    private Utilisateur utilisateur;
+
+    @ManyToOne
+    @JoinColumn(name = "idEvent")
+    private Events event;
+
+
+
 }
