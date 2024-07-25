@@ -11,9 +11,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
+
 
     private final UserRepository userRepository;
 
@@ -73,4 +77,15 @@ public class AuthenticationService {
 
 
     }
+
+
+    public List<Utilisateur> getAllUsers() {
+        List<Utilisateur> users = (List<Utilisateur>) userRepository.findAll();
+        return users;
+    }
+
+    public void deleteUser(int iduser) {
+        userRepository.deleteById(iduser);
+    }
+
 }

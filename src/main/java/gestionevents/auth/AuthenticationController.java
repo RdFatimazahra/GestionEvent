@@ -1,8 +1,11 @@
 package gestionevents.auth;
 
+import gestionevents.model.Utilisateur;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -19,6 +22,13 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
+    @PostMapping("/registerAdmin")
+    public ResponseEntity<AuthenticationResponse>registerAdmin(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(authenticationService.registerAdmin(request));
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse>authenticate(
             @RequestBody AuthenticationRequest  request
@@ -27,4 +37,13 @@ public class AuthenticationController {
 
     }
 
+    @GetMapping("/affiche")
+    public List<Utilisateur> getAllUser() {
+        return authenticationService.getAllUsers();
+    }
+
+    @DeleteMapping("/{id_user}")
+    public void deleteCompte(@PathVariable int id_user) {
+        authenticationService.deleteUser(id_user);
+    }
 }
