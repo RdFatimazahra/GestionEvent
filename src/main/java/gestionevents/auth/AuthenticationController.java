@@ -37,12 +37,12 @@ public class AuthenticationController {
 
     }
 
-    @GetMapping("/affiche")
+    @GetMapping("/Admin/affiche")
     public List<Utilisateur> getAllUser() {
         return authenticationService.getAllUsers();
     }
 
-    @DeleteMapping("/{id_user}")
+    @DeleteMapping("/Admin/{id_user}")
     public void deleteCompte(@PathVariable int id_user) {
         authenticationService.deleteUser(id_user);
     }
