@@ -88,4 +88,8 @@ public class AuthenticationService {
         userRepository.deleteById(iduser);
     }
 
+    public Long count(){
+        return userRepository.count();
+    }
+
 }
