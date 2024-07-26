@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -53,6 +54,16 @@ class EventServiceImplTest {
 
     @Test
     void getEventById() {
+        Events event = new Events();
+        event.setIdEvent(1);
+        event.setName("Event 1");
+
+        when(eventRepository.findById(1)).thenReturn(Optional.of(event));
+
+        Events result = eventService.getEventById(1);
+
+        assertNotNull(result);
+        assertEquals("Event 1", result.getName());
     }
 
     @Test
