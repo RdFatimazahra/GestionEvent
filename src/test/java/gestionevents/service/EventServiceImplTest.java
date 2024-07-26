@@ -108,5 +108,11 @@ class EventServiceImplTest {
 
     @Test
     void count() {
+        when(eventRepository.count()).thenReturn(5L);
+
+        Long count = eventService.count();
+
+        assertEquals(5L, count);
     }
+
 }
