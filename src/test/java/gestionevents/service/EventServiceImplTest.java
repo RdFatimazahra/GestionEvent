@@ -68,6 +68,16 @@ class EventServiceImplTest {
 
     @Test
     void createEvent() {
+        Events event = new Events();
+        event.setIdEvent(1);
+        event.setName("Event 1");
+
+        when(eventRepository.save(event)).thenReturn(event);
+
+        Events result = eventService.createEvent(event);
+
+        assertNotNull(result);
+        assertEquals("Event 1", result.getName());
     }
 
     @Test
