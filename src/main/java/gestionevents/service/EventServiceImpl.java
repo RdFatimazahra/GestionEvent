@@ -54,5 +54,9 @@ public class EventServiceImpl implements EventService {
 
     }
 
+    public Long count(){
+        return eventRepository.count();
+    }
+
 
 }

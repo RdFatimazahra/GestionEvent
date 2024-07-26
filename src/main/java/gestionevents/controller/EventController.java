@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/events")
+@RequestMapping("/api/v1/auth/Admin/events")
 public class EventController {
 
     @Autowired
@@ -25,13 +25,13 @@ public class EventController {
        return eventService.createEvent(event);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Events updateEvent(@PathVariable int id, @RequestBody Events event) {
         event.setIdEvent(id);
         return eventService.updateEvent(id, event);
     }
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping("/{id}")
     public void deleteEvent(@PathVariable int id) {
           eventService.deleteEvent(id);
     }
