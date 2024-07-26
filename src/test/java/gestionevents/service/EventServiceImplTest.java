@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class EventServiceImplTest {
@@ -101,6 +101,9 @@ class EventServiceImplTest {
 
     @Test
     void deleteEvent() {
+        int eventId = 1;
+        eventService.deleteEvent(eventId);
+        verify(eventRepository, times(1)).deleteById(eventId);
     }
 
     @Test
