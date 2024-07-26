@@ -13,9 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class EventServiceImplTest {
@@ -53,21 +54,65 @@ class EventServiceImplTest {
 
     @Test
     void getEventById() {
+        Events event = new Events();
+        event.setIdEvent(1);
+        event.setName("Event 1");
+
+        when(eventRepository.findById(1)).thenReturn(Optional.of(event));
+
+        Events result = eventService.getEventById(1);
+
+        assertNotNull(result);
+        assertEquals("Event 1", result.getName());
     }
 
     @Test
     void createEvent() {
+        Events event = new Events();
+        event.setIdEvent(1);
+        event.setName("Event 1");
+
+        when(eventRepository.save(event)).thenReturn(event);
+
+        Events result = eventService.createEvent(event);
+
+        assertNotNull(result);
+        assertEquals("Event 1", result.getName());
     }
 
     @Test
     void updateEvent() {
+        Events existingEvent = new Events();
+        existingEvent.setIdEvent(1);
+        existingEvent.setName("Existing Event");
+
+        Events updatedEvent = new Events();
+        updatedEvent.setIdEvent(1);
+        updatedEvent.setName("Updated Event");
+
+        when(eventRepository.findById(1)).thenReturn(Optional.of(existingEvent));
+        when(eventRepository.save(existingEvent)).thenReturn(updatedEvent);
+
+        Events result = eventService.updateEvent(1, updatedEvent);
+
+        assertNotNull(result);
+        assertEquals("Updated Event", result.getName());
     }
 
     @Test
     void deleteEvent() {
+        int eventId = 1;
+        eventService.deleteEvent(eventId);
+        verify(eventRepository, times(1)).deleteById(eventId);
     }
 
     @Test
     void count() {
+        when(eventRepository.count()).thenReturn(5L);
+
+        Long count = eventService.count();
+
+        assertEquals(5L, count);
     }
+
 }
