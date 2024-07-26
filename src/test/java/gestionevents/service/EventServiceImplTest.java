@@ -82,6 +82,21 @@ class EventServiceImplTest {
 
     @Test
     void updateEvent() {
+        Events existingEvent = new Events();
+        existingEvent.setIdEvent(1);
+        existingEvent.setName("Existing Event");
+
+        Events updatedEvent = new Events();
+        updatedEvent.setIdEvent(1);
+        updatedEvent.setName("Updated Event");
+
+        when(eventRepository.findById(1)).thenReturn(Optional.of(existingEvent));
+        when(eventRepository.save(existingEvent)).thenReturn(updatedEvent);
+
+        Events result = eventService.updateEvent(1, updatedEvent);
+
+        assertNotNull(result);
+        assertEquals("Updated Event", result.getName());
     }
 
     @Test
